@@ -1,6 +1,8 @@
 (function(){
     let principal = document.getElementById("principal");
     let opciones = document.getElementById("opciones");
+    let solucion = Array.from({ length: 9 }, () => Array(9).fill(0));
+
     
 
     function crearTablero(){
@@ -38,25 +40,26 @@
         }
     }
 
-    function crearRellenarTablero(){
+    function crearSolucion(){
         
         for (let i = 1; i < 10; i++) {
             for (let j = 1; j < 10; j++) {
-                
-                let numeros = [1,2,3,4,5,6,7,8,9].sort(() => Math.random() - 0.5);
 
-                let casilla = document.querySelector(`#casilla${i}${j}`);
-                if(casilla.querySelector("p").textContent === ""){
+                if(solucion[i - 1][j - 1] === 0){
+                    let numeros = [1,2,3,4,5,6,7,8,9].sort(() => Math.random() - 0.5);
                     
                     for (let k = 0; k < 9; k++) { 
                         let valor = numeros[k];
                         
                         if(RevisarfilaColumna(i, j, valor) && RevisarCuadro(i, j, valor)){
-                            casilla.querySelector("p").textContent = valor;
-                            console.log(valor,`valor casilla ${i},${j}`);
-                            if(crearRellenarTablero()){
+                            solucion[i - 1][j - 1] = valor;
+                        
+                            if(crearSolucion()){
                                 return true
-                            };
+                            }else{
+                                solucion[i - 1][j - 1] = 0;
+                            }
+                            
                             
                         }
                     }
@@ -66,16 +69,19 @@
                 
             }
         } 
+        return true;
     }
     
     function RevisarfilaColumna(f,c,valor){
+        f = f - 1;
+        c = c - 1;
         let filas = [];
         let columnas = [];
-        for (let i = 1; i < 10; i++) {
-            let fila = document.querySelector(`#casilla${f}${i}`);
-            let columna = document.querySelector(`#casilla${i}${c}`);
-            filas.push(Number(fila.querySelector("p").textContent));
-            columnas.push(Number(columna.querySelector("p").textContent));
+        for (let i = 0; i < 9; i++) {
+            let fila = solucion[f][i];
+            let columna = solucion[i][c];
+            filas.push(Number(fila));
+            columnas.push(Number(columna));
         }
         // console.log(filas);
         // console.log(columnas);
@@ -86,22 +92,40 @@
         
     }
     function RevisarCuadro(f,c,valor){
-        let startFila = Math.floor((f - 1) / 3) * 3 + 1;
-        let startColumna = Math.floor((c - 1) / 3) * 3 + 1;
+        f = f - 1;
+        c = c - 1;
+        let startFila = Math.floor((f ) / 3) * 3 ;
+        let startColumna = Math.floor((c) / 3) * 3 ;
         
         for (let i = startFila; i < startFila + 3; i++) {
             for (let j = startColumna; j < startColumna + 3; j++) {
-                let casilla = document.querySelector(`#casilla${i}${j}`);
-                if (Number(casilla.querySelector("p").textContent) === valor) {
+                let casilla = solucion[i][j];
+                if (Number(casilla) === valor) {
                     return false;
                 }
             }
         }
         return true;
     }
+
+    function rellenarTablero(niv){
+        let cont = 0;
+        while(cont<niv){
+            let fila = Math.floor(Math.random() * 9);
+            let columna = Math.floor(Math.random() * 9);
+            let casilla = document.querySelector(`#casilla${fila+1}${columna+1}`);
+            if(  casilla.querySelector("p").textContent === ""){
+                casilla.querySelector("p").textContent = solucion[fila][columna]
+                cont++;
+            }
+        }
+    }
     
     crearTablero();
     crearOpciones();
-    crearRellenarTablero()
+    crearSolucion()
+    console.log("Solución del Sudoku:");
+    console.table(solucion);
+    rellenarTablero(45)
     
 })();
