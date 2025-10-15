@@ -1,0 +1,48 @@
+.tablero{
+    display: flex;
+    flex-direction: column;  
+    width: 18rem; 
+    margin: auto;
+    
+}
+.casilla{
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid rgb(177, 176, 176);
+}
+.fila{
+    display: flex;
+    width: 18rem;
+    box-sizing: border-box;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+}
+.limite_fila_top{
+    border-top: 2px solid black;
+}
+.limite_fila_bottom{
+    
+    border-bottom: 2px solid black;
+}
+.limite_casilla{
+    border-right: 2px solid black;
+}
+.opciones{
+    display: flex;
+    width: 18rem;
+    flex-direction: row;
+    justify-content: center;
+    
+}
+.opcion{
+    border: 2px solid black;
+    box-sizing: border-box;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0.1rem;
+    font-weight: bold;
+}
+
