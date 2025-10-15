@@ -1,3 +1,5 @@
+//revision diego
+//lugar para crear el pull request
 (function(){
     let principal = document.getElementById("principal");
     let opciones = document.getElementById("opciones");
