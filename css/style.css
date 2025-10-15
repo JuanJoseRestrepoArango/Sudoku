@@ -9,6 +9,7 @@
     width: 2rem;
     height: 2rem;
     border: 1px solid rgb(177, 176, 176);
+    background-color: white;
 }
 .fila{
     display: flex;
@@ -44,5 +45,8 @@
     align-items: center;
     margin: 1rem 0.1rem;
     font-weight: bold;
+}
+.malo{
+    background-color: red;
 }
 

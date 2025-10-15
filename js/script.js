@@ -3,8 +3,6 @@
     let opciones = document.getElementById("opciones");
     let solucion = Array.from({ length: 9 }, () => Array(9).fill(0));
 
-    
-
     function crearTablero(){
         for (let i = 1; i < 10; i++) {
             let fila = document.createElement("div");
@@ -127,5 +125,34 @@
     console.log("Solución del Sudoku:");
     console.table(solucion);
     rellenarTablero(45)
+    let botones = document.querySelectorAll('.opcion');
+    let casillas = document.querySelectorAll('.casilla');
+    botones.forEach(boton => {
+        boton.addEventListener('click', function () {
+            console.log('Botón presionado:', boton.textContent);
+            valor = boton.textContent;
+            casillas.forEach(casilla=>{
+                casilla.addEventListener('click',function(){
+                    let id = casilla.id.replace('casilla', '');  // "39"
+                    let fila = parseInt(id[0]);
+                    let columna = parseInt(id[1]);
+                    let valorCorrecto = solucion[fila - 1][columna - 1];
+                    console.log(fila,columna,valorCorrecto)
+                    if(casilla.querySelector("p").textContent==="" && parseInt(valor) === valorCorrecto){
+                        casilla.querySelector("p").textContent=valor
+                        console.log(casilla.classList)
+                        casilla.classList.remove('malo')
+                        console.log(casilla.classList)
+                    }else{
+                        
+                        casilla.classList.add('malo')
+                    }
+                })
+            })
+
+        });
+    });
+
+    
     
 })();
